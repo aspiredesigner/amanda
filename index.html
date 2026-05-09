@@ -610,20 +610,40 @@ body::before{
   color:var(--ink-soft);
 }
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.form-row{display:flex;flex-direction:column;gap:6px;position:relative}
+.form-row{display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
 .form-row.full{grid-column:1/-1}
 .form-row label{
   font-family:var(--display);font-weight:500;
   font-size:0.9rem;letter-spacing:0.15em;
   color:var(--wine);text-transform:uppercase;
+  word-break:keep-all;
 }
 .form-row label .req{color:var(--wine);font-weight:700;margin-left:4px}
 .form-row input,.form-row select,.form-row textarea{
-  font-family:var(--body);font-size:1rem;
+  font-family:var(--body);
+  font-size:16px; /* 16px prevents iOS auto-zoom on focus */
   padding:12px 14px;
   background:var(--cream-soft);
   border:1px solid rgba(139,31,26,0.2);
   color:var(--ink);transition:all 0.2s;
+  box-sizing:border-box;
+  width:100%;max-width:100%;
+  -webkit-appearance:none;
+  appearance:none;
+  border-radius:0;
+  height:48px; /* unify heights of input/select on iOS */
+  line-height:1.4;
+}
+.form-row textarea{
+  height:auto;
+  resize:vertical;min-height:90px;
+}
+/* Custom select arrow since we removed appearance */
+.form-row select{
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%238b1f1a' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:38px;
 }
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{
   outline:none;border-color:var(--wine);
@@ -638,7 +658,6 @@ body::before{
   color:#c44;font-style:italic;
   margin-top:2px;min-height:1.2em;
 }
-.form-row textarea{resize:vertical;min-height:80px}
 .form-submit{
   grid-column:1/-1;margin-top:15px;
   display:flex;justify-content:center;
@@ -650,6 +669,8 @@ body::before{
   font-family:var(--display);font-size:1.05rem;
   letter-spacing:0.25em;text-transform:uppercase;font-weight:500;
   transition:all 0.3s;
+  max-width:100%;
+  white-space:nowrap;
 }
 .form-submit button:hover{background:var(--wine-deep);transform:translateY(-2px)}
 .form-msg{
@@ -868,8 +889,17 @@ footer{
   .menu-grid{grid-template-columns:1fr;gap:30px}
   .menu-section-title::before,.menu-section-title::after{display:none}
   .access-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .reservation-inner{padding:40px 25px}
+  .form-grid{grid-template-columns:1fr;gap:18px}
+  .reservation-inner{padding:35px 20px}
+  .reservation-inner::before{inset:6px}
+  .reservation-intro{font-size:0.95rem;margin-bottom:25px}
+  .form-row label{font-size:0.82rem;letter-spacing:0.1em}
+  .form-submit button{
+    padding:14px 30px;
+    letter-spacing:0.15em;
+    font-size:0.95rem;
+    width:100%;
+  }
   .set-meals{grid-template-columns:1fr;max-width:400px}
   .hero{padding:140px 20px 60px}
   .about,.menu,.features,.reservation,.faq,.access,.pillars{padding:80px 20px}
@@ -886,6 +916,11 @@ footer{
   .menu-tab{padding:12px 14px;font-size:0.92rem}
   .hero-cta{flex-direction:column;width:100%;align-items:stretch}
   .btn{justify-content:center}
+  .reservation-inner{padding:30px 16px}
+  .reservation-inner::before{inset:4px}
+  .form-row label{font-size:0.78rem;letter-spacing:0.08em}
+  .form-row input,.form-row select,.form-row textarea{padding:10px 12px;height:46px}
+  .form-row textarea{height:auto}
 }
 </style>
 </head>
